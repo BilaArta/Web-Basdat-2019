@@ -13,9 +13,9 @@ var request = require('request');
 var sess;
 
 cloudinary.config({ 
-    cloud_name: 'dha1twnnx', 
-    api_key: '759356267237253', 
-    api_secret: 'GCj8-bkelh1-R2ouG9ZcVxWKTnY' 
+    cloud_name: '', 
+    api_key: '',    // add your cloudinary config here
+    api_secret: '' 
 });
 
 // =========================== CLOUDINARY =============================
@@ -33,30 +33,18 @@ const storage = cloudinaryStorage({
 });
 
 var config = {
-    apiKey: "AIzaSyCzWIEL7aIOUT4mwZ-wlH_-r4BQscSDbvo",
-    authDomain: "basdat2018.firebaseapp.com",
-    databaseURL: "https://basdat2018.firebaseio.com",
-    projectId: "basdat2018",
-    storageBucket: "basdat2018.appspot.com",
-    messagingSenderId: "462507679300"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: ", // add your firebase config here
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
 };
 firebase.initializeApp(config);
 
 var db = firebase.database()
 
 const parser = multer({ storage: storage });
-
-//           MULTER
-// const storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//         cb(null, 'public/file/')
-//     },
-//     filename: function(req, file, cb) {
-//         cb(null, req.body.nim + "_" + file.originalname)
-//     }
-// })
-
-// const upload = multer({ storage: storage })
 
 app.use(express.static('public'))
 
@@ -70,20 +58,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
-
-// app.post('/login', (req,res) => {
-//     var ref = db.ref('admin');
-//     console.log(req.body.username);
-
-//     ref.once('value', (snapshot) => {
-//         var data = snapshot.val()
-//         if (data.username == req.body.username && data.password == req.body.password) {
-//             res.redirect('/')
-//         }else {
-//             res.redirect('/admin')
-//         }
-//     })
-// })
 
 // =============================== TEST UPLOAD IMAGE ===========================================
 // app.get('/test', (req, res) => {
@@ -119,18 +93,7 @@ app.set('views', path.join(__dirname, 'views'));
 // ================================== END TEST ========================================
 
 app.post('/add', parser.any("file"), async (req, res) => {
-    // ========================= kalo belum ada parent harus di push dulu, ga bisa pake update langsung ========
-    // db.ref().child('peserta').push({
-    //     nim: req.body.nim,
-    //     nama: req.body.nama,
-    //     fakultas: req.body.fakultas,
-    //     jurusan: req.body.jurusan,
-    //     cv: req.body.nim + "_" + req.body.nama
-    // })
-    // var ref = db.ref().child('/peserta');
-    //console.log(req.cv);
-    // res.send(parser.storage.cloudinary.url);
- ///-==============-=-=-=-=-=-captcha
+    ///-==============-=-=-=-=-=-captcha
 
     // if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     //     return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
@@ -193,9 +156,7 @@ app.post('/update', (req,res) => {
     var data = req.body 
     console.log(data.btn);
     console.log(data.nim);
-    
-
-     
+    //get index
     // console.log(data.btn);
     for (let index = 0; index < data.index.length; index++) {
         console.log(index);
